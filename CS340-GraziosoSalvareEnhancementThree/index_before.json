@@ -1,0 +1,111 @@
+{
+  "query": {
+    "animal_type": "Dog",
+    "breed": {
+      "$in": [
+        "Labrador Retriever Mix",
+        "Chesapeake Bay Retriever",
+        "Newfoundland"
+      ]
+    },
+    "sex_upon_outcome": "Intact Female",
+    "age_upon_outcome_in_weeks": {
+      "$gte": 26,
+      "$lte": 156
+    }
+  },
+  "page_size": 10,
+  "projection": {
+    "_id": 0,
+    "animal_id": 1,
+    "name": 1,
+    "animal_type": 1,
+    "breed": 1,
+    "sex_upon_outcome": 1,
+    "age_upon_outcome_in_weeks": 1,
+    "location_lat": 1,
+    "location_long": 1
+  },
+  "measurements": {
+    "Animals returned": 10,
+    "Documents examined": 4222,
+    "Index's examined": 4222,
+    "Median time in ms": 4
+  },
+  "plan": {
+    "isCached": false,
+    "stage": "LIMIT",
+    "limitAmount": 10,
+    "inputStage": {
+      "stage": "PROJECTION_SIMPLE",
+      "transformBy": {
+        "_id": 0,
+        "animal_id": 1,
+        "name": 1,
+        "animal_type": 1,
+        "breed": 1,
+        "sex_upon_outcome": 1,
+        "age_upon_outcome_in_weeks": 1,
+        "location_lat": 1,
+        "location_long": 1
+      },
+      "inputStage": {
+        "stage": "FETCH",
+        "filter": {
+          "$and": [
+            {
+              "animal_type": {
+                "$eq": "Dog"
+              }
+            },
+            {
+              "sex_upon_outcome": {
+                "$eq": "Intact Female"
+              }
+            },
+            {
+              "age_upon_outcome_in_weeks": {
+                "$lte": 156
+              }
+            },
+            {
+              "age_upon_outcome_in_weeks": {
+                "$gte": 26
+              }
+            },
+            {
+              "breed": {
+                "$in": [
+                  "Chesapeake Bay Retriever",
+                  "Labrador Retriever Mix",
+                  "Newfoundland"
+                ]
+              }
+            }
+          ]
+        },
+        "nss": "aac.animals",
+        "inputStage": {
+          "stage": "IXSCAN",
+          "nss": "aac.animals",
+          "keyPattern": {
+            "_id": 1
+          },
+          "indexName": "_id_",
+          "isMultiKey": false,
+          "isUnique": true,
+          "isSparse": false,
+          "isPartial": false,
+          "indexVersion": 2,
+          "direction": "forward",
+          "indexBounds": {
+            "_id": [
+              "[MinKey, MaxKey]"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "matching_animals": 17
+}
